@@ -9,10 +9,14 @@ const ReplySchema = new Schema(
       default: () => new Types.ObjectId()
     },
     replyBody: {
-      type: String
+      type: String,
+      required: 'You cannot submit an empty reply!',
+      trim: true
     },
     writtenBy: {
-      type: String
+      type: String,
+      required: 'You cannot submit anonymous replies!',
+      trim: true
     },
     createdAt: {
       type: Date,
@@ -22,20 +26,22 @@ const ReplySchema = new Schema(
   },
   {
     toJSON: {
-      virtuals: true,
       getters: true
-    },
-    id: false
+    }
   }
 );
 
 const CommentSchema = new Schema(
     {
     writtenBy: {
-      type: String
+      type: String,
+      required: 'You cannot submit anonymous comments!',
+      trim: true
     },
     commentBody: {
-      type: String
+      type: String,
+      required: 'You cannot submit an empty comment!',
+      trim: true
     },
     createdAt: {
       type: Date,
